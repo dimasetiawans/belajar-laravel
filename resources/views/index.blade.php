@@ -7,6 +7,13 @@
     <title>Belajar Laravel</title>
 </head>
 <body>
+    <style type="text/css">
+        .pagination li{
+            float: left;
+            list-style-type: none;
+            margin: 5px;
+        }
+    </style>
     <h3>Data Pegawai</h3>
     <a href="/pegawai/tambah">+ Tambah Pegawai Baru</a>
     <br>
@@ -32,5 +39,8 @@
         </tr>
         @endforeach
     </table>
+
+    {{ $pegawai->links() }}
+
 </body>
 </html>
