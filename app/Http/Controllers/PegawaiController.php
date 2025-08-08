@@ -80,7 +80,9 @@ class PegawaiController extends Controller
     }
 
     public function delete($id){
-        DB::table('pegawai')->where('id', $id)->delete();
+        // DB::table('pegawai')->where('id', $id)->delete();
+        $pegawai = Pegawai::find($id);
+        $pegawai->delete();
         return redirect('/pegawai');
     }
 
