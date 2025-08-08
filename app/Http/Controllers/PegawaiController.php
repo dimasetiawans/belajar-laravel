@@ -14,7 +14,7 @@ class PegawaiController extends Controller
     //
     use ValidatesRequests;
 
-    
+
     public function index(){
         // $pegawai = DB::table('pegawai')->paginate(10);
         $pegawai = Pegawai::paginate(10);
@@ -50,17 +50,31 @@ class PegawaiController extends Controller
     }
 
     public function edit($id){
-        $pegawai = DB::table('pegawai')->where('id', $id)->get();
+        // $pegawai = DB::table('pegawai')->where('id', $id)->get();
+        $pegawai = Pegawai::find($id);
         return view('edit', ['pegawai'=> $pegawai]);
     }
 
-    public function update(Request $request){
-        DB::table('pegawai')->where('id', $request->id)->update([
-            'nama'=>$request->nama,
-            'jabatan'=>$request->jabatan,
-            'umur'=>$request->umur,
-            'alamat'=>$request->alamat
+    public function update(Request $request, $id){
+        // DB::table('pegawai')->where('id', $request->id)->update([
+        //     'nama'=>$request->nama,
+        //     'jabatan'=>$request->jabatan,
+        //     'umur'=>$request->umur,
+        //     'alamat'=>$request->alamat
+        // ]);
+
+        $validatedData= $request->validate([
+            'nama' => 'required',
+            'jabatan' => 'required',
+            'umur' => 'required',
         ]);
+
+        $pegawai = Pegawai::find($id);
+        $pegawai->nama = $request->nama;
+        $pegawai->umur = $request->umur;
+        $pegawai->jabatan = $request->jabatan;
+        $pegawai->jabatan = $request->jabatan;
+        $pegawai->save();
 
         return redirect('/pegawai');
     }
