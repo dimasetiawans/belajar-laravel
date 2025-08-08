@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 // panggil model Pegawai
 use App\Models\Pegawai;
@@ -11,6 +12,9 @@ use App\Models\Pegawai;
 class PegawaiController extends Controller
 {
     //
+    use ValidatesRequests;
+
+    
     public function index(){
         // $pegawai = DB::table('pegawai')->paginate(10);
         $pegawai = Pegawai::paginate(10);
@@ -22,7 +26,20 @@ class PegawaiController extends Controller
     }
 
     public function store(Request $request){
-        DB::table('pegawai')->insert([
+        // DB::table('pegawai')->insert([
+        //     'nama'=>$request->nama,
+        //     'jabatan'=>$request->jabatan,
+        //     'umur'=>$request->umur,
+        //     'alamat'=>$request->alamat
+        // ]);
+
+        $validatedData= $request->validate([
+            'nama' => 'required',
+            'jabatan' => 'required',
+            'umur' => 'required',
+        ]);
+
+        Pegawai::create([
             'nama'=>$request->nama,
             'jabatan'=>$request->jabatan,
             'umur'=>$request->umur,
