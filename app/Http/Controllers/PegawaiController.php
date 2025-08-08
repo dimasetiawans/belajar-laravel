@@ -5,11 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+// panggil model Pegawai
+use App\Models\Pegawai;
+
 class PegawaiController extends Controller
 {
     //
     public function index(){
-        $pegawai = DB::table('pegawai')->paginate(10);
+        // $pegawai = DB::table('pegawai')->paginate(10);
+        $pegawai = Pegawai::paginate(10);
         return view('index', ['pegawai'=>$pegawai]);
     }
 
